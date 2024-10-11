@@ -3,13 +3,16 @@ import img from '../../assets/images/login/login.svg'
 import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, replace, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Providers/AuthProvider';
 
 
 const Login = () => {
 
     const {signInUser} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    // console.log(location);
 
     const handleLogin = event => {
         event.preventDefault();
@@ -22,6 +25,7 @@ const Login = () => {
         .then(result => {
             const user = result.user;
             console.log(user);
+            navigate( location?.state ? location?.state : '/' );
         })
         .catch(error => console.log(error));
 
